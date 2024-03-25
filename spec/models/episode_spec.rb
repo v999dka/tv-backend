@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe Episode do
-  let(:episode) { build(:episode) }
+RSpec.describe Episode, type: :model do
+  subject(:episode) { described_class.new }
 
   it 'factory is valid' do
-    expect(episode).to be_valid
+    expect(build(:episode)).to be_valid
   end
 
   describe 'relationships' do

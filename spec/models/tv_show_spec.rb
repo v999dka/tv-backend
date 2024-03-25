@@ -1,17 +1,15 @@
 require 'rails_helper'
 
-RSpec.describe TvShow do
-  let(:tv_show) { build(:tv_show) }
+RSpec.describe TvShow, type: :model do
+  subject(:tv_show) { described_class.new }
 
-  it 'is valid' do
-    expect(tv_show).to be_valid
+  it 'factory is valid' do
+    expect(build(:tv_show)).to be_valid
   end
 
   describe 'relationships' do
 
-    it 'is expected to have relationship with Season' do
-      expect(tv_show).to have_many(:seasons).dependent(:destroy)
-    end
+    it { is_expected.to have_many(:seasons).dependent(:destroy) }
 
   end
 

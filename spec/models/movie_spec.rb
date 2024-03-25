@@ -1,13 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Movie do
+RSpec.describe Movie, type: :model do
+  subject(:movie) { build(:movie) }
 
-  context 'validates' do
-
-    it 'is valid' do
-      expect(build(:movie)).to be_valid
-    end
-
-  end
+  it { is_expected.to be_valid }
 
 end

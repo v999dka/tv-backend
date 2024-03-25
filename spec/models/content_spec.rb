@@ -1,13 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe Content do
+RSpec.describe Content, type: :model do
 
-  context 'validates' do
+  subject(:content) { build(:content) }
 
-    it 'is valid' do
-      expect(build(:content)).to be_valid
-    end
-
-  end
+  it { is_expected.to be_valid }
 
 end

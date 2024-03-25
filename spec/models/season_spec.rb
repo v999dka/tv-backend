@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe Season do
-  let(:season) { build(:season) }
+RSpec.describe Season, type: :model do
+  subject(:season) { described_class.new }
 
   it 'factory is valid' do
-    expect(season).to be_valid
+    expect(build(:season)).to be_valid
   end
 
   describe 'relationships' do
