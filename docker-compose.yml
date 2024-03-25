@@ -21,6 +21,9 @@ services:
       RAILS_ENV: development
     develop:
       watch:
+        - path: ./spec/
+          target: /opt/tvbackend/spec/
+          action: sync
         - path: ./app/
           target: /opt/tvbackend/app/
           action: sync
