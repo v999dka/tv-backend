@@ -1,6 +1,6 @@
 class AddContentModel < ActiveRecord::Migration[7.1]
   def change
-    create_table :content do
+    create_table :contents do |t|
       t.string :title
       t.string :original_title
       t.string :type
