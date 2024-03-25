@@ -1,6 +1,7 @@
 services:
   database:
     image: 'postgres:16'
+    hostname: 'database'
     ports:
       - 5432:5432
     environment:
@@ -9,20 +10,15 @@ services:
       POSTGRES_DB: tv_backend_development
     volumes:
       - ~/.db-data/tv_backend_development:/var/lib/postgresql/data/
-    networks:
-      vnet:
-        ipv4_address: 10.10.0.5
 
   backend:
     build:
       dockerfile: ./Dockerfile
+    hostname: 'backend'
     ports:
       - 1337:1337
     environment:
       RAILS_ENV: development
-    networks:
-      vnet:
-        ipv4_address: 10.10.0.3
     develop:
       watch:
         - path: ./app/
@@ -32,11 +28,3 @@ services:
           action: rebuild
     depends_on:
       - database
-
-networks:
-  vnet:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 10.10.0.0/16
-          gateway: 10.10.0.1
