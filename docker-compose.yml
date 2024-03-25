@@ -3,24 +3,26 @@ services:
     image: 'postgres:16'
     ports:
       - 5432:5432
-    networks:
-      devnet:
-        ipv4_address: 10.10.10.2
-    enviroment:
+    environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: tv_backend_dev
+      POSTGRES_DB: tv_backend_development
     volumes:
       - ~/.db-data/tv_backend_development:/var/lib/postgresql/data/
+    networks:
+      vnet:
+        ipv4_address: 10.10.0.5
 
   backend:
     build:
       dockerfile: ./Dockerfile
     ports:
       - 1337:1337
+    environment:
+      RAILS_ENV: development
     networks:
-      devnet:
-        ipv4_address: 10.10.10.3
+      vnet:
+        ipv4_address: 10.10.0.3
     develop:
       watch:
         - path: ./app/
@@ -28,15 +30,13 @@ services:
           action: sync
         - path: Gemfile
           action: rebuild
-    volumes:
-      - ~/.rail-data/tv_backend/:/opt/tvbackend
     depends_on:
       - database
 
 networks:
-  devnet:
+  vnet:
     driver: bridge
     ipam:
       config:
-        - subnet: 10.10.10.0/24
-          gateway: 10.10.10.1
+        - subnet: 10.10.0.0/16
+          gateway: 10.10.0.1
