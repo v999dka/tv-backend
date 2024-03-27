@@ -22,30 +22,49 @@ RSpec.describe Api::V1::ContentsController, type: :controller do
       context 'when the list has no contents' do
         before { subject }
 
+        let(:expected_metadata) { {current_page: 1, prev_page: nil, next_page: nil, total_pages: 0}.with_indifferent_access }
+        let(:json) { response.parsed_body }
+        let(:content) { json.fetch(:content) }
+        let(:metadata) { json.fetch(:metadata) }
+
         it 'returns a success response' do
           expect(response).to be_successful
         end
 
         it 'returns an empty response' do
-          expect(response.body).to eq('[]')
+          expect(content).to match([])
+        end
+
+        it 'returns the metadata' do
+          expect(metadata).to match(expected_metadata)
         end
       end
 
       context 'when the list has contents' do
-        let(:content) { create(:content) }
-        let(:list_content) { create(:list_content, list: list, content: content) }
-
         before do
           list_content
           subject
         end
+
+        let(:content) { create(:content) }
+        let(:list_content) { create(:list_content, list: list, content: content) }
+
+        let(:expected_metadata) { {current_page: 1, prev_page: nil, next_page: nil, total_pages: 1}.with_indifferent_access }
+        let(:json) { response.parsed_body }
+        let(:json_content) { json.fetch(:content) }
+        let(:metadata) { json.fetch(:metadata) }
+
 
         it 'returns a success response' do
           expect(response).to be_successful
         end
 
         it 'returns the contents' do
-          expect(response.body).to eq([content.as_json].to_json)
+          expect(json_content).to match([content.as_json])
+        end
+
+        it 'returns the metadata' do
+          expect(metadata).to match(expected_metadata)
         end
       end
     end
