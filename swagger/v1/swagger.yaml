@@ -1,0 +1,41 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/lists/{list_id}/contents":
+    get:
+      summary: Get contents from list
+      parameters:
+        - name: list_id
+          in: path
+          description: list_id
+          required: true
+          schema:
+            type: string
+        - name: content_type
+          in: query
+          required: false
+          description: content_type
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: page
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          required: false
+          description: per_page
+          schema:
+            type: integer
+      responses:
+        '404':
+          description: List not found
+        '200':
+          description: List found
+servers:
+  - url: https://www.example.com
