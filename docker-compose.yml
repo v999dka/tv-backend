@@ -10,6 +10,11 @@ services:
       POSTGRES_DB: tv_backend_development
     volumes:
       - ~/.db-data/tv_backend_development:/var/lib/postgresql/data/
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   backend:
     build:
@@ -30,4 +35,6 @@ services:
         - path: Gemfile
           action: rebuild
     depends_on:
-      - database
+      database:
+        condition: service_healthy
+
