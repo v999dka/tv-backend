@@ -38,4 +38,7 @@ paths:
         '200':
           description: List found
 servers:
-  - url: https://www.example.com
+  - url: http://{host}
+    variables:
+      host:
+        default: www.example.com
