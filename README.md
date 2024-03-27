@@ -5,7 +5,7 @@
 - [Technologies](#technologies)
   - [Gems](#gems-used-on-this-project)
 - [Installation](#installation)
-- [API/Endpoints](#api)
+- [API / Endpoints](#api--endpoints)
 
 ## Description
 This is the backend for the TV app. It is a API based on the following statement:
