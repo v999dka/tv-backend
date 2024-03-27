@@ -52,6 +52,7 @@ git clone git@github.com:v999dka/tv-backend.git
 ```bash
 docker-compose up --build
 ```
+- Enter to http://localhost:1337/up to check if the application is running as expected
 
 ## API / Endpoints
 [Swagger API Doc](./swagger/v1/swagger.yaml)
